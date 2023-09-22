@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... (same as your previous code) ... -->
+
+</head>
+
+<body>
+    <style>
+
+
+
+
+/* Reset some default styles */
+body, h1, h2, ul, li, nav {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    text-align: center;
+}
+
+header {
+    background-color: #ff5722;
+    color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav li {
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+.item-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.2s;
+    width:350px;
+    margin-left:550px
+}
+
+.order-button {
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.order-button:hover {
+    background-color: #ff4500;
+}
+.buttons{
+    display: flex;
+    flex-direction: row;
+    gap:20px
+}
+
+    </style>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="restaurant.html">Restaurant</a></li>
+                <li><a href="order.html">Orders</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+        <ul>
+            <a style="color:white;   font-weight: bold;font-size: 16px;" href="profile.html">Personal</a>
+         </ul>
+    </header>
+
+    <main>
+        <section class="cart">
+            <h2>Cart</h2>
+            <ul id="cart-items">
+                <!-- Cart items will be displayed here dynamically -->
+            </ul>
+        </section>
+    </main>
+
+    <script>
+        // Retrieve cart items from the URL parameters
+//   const urlParams = new URLSearchParams(window.location.search);
+// const cartJSON = urlParams.get('cart');
+// const decodedCartJSON = decodeURIComponent(cartJSON);
+// const cartItems = JSON.parse(decodedCartJSON);
+// console.log('URL:', window.location.href);
+// console.log('cartJSON:', cartJSON);
+// console.log('decodedCartJSON:', decodedCartJSON);
+// console.log('cartItems:', cartItems);
+
+
+//         function updateCartDisplay() {
+//             const cartList = document.getElementById("cart-items");
+//             cartList.innerHTML = "";
+
+//             cartItems.forEach(item => {
+//                 const li = document.createElement("li");
+//                 li.innerHTML = `
+//                     <img src="${item.image}" alt="${item.name}">
+//                     <h3>${item.name}</h3>
+//                     <p>Price: Rs ${item.price}</p>
+//                     <p>Ratings: ${item.ratings}</p>
+//                     <p>Offer: ${item.offer}</p>
+//                 `;
+//                 cartList.appendChild(li);
+//             });
+//         }
+
+//         // Initial update of the cart display
+//         updateCartDisplay();
+
+// Retrieve cart items from localStorage
+// Retrieve cart items from localStorage
+const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+// Function to remove an item from the cart
+function removeItem(index) {
+    cartItems.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+    // Update the displayed cart items after removal
+    displayCartItems();
+}
+
+// Display cart items as a list with delete buttons
+function displayCartItems() {
+    const cartList = document.getElementById("cart-items");
+    cartList.innerHTML = "";
+
+    cartItems.forEach((item, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+        <div class='item-box '>
+            <img src="${item.image}" alt="${item.name}">
+            <h3>${item.name}</h3>
+            <p>Price: Rs ${item.price}</p>
+            <p>Ratings: ${item.ratings}</p>
+            <p>Offer: ${item.offer}</p>
+            <div class="buttons">
+            <a href="#">
+                                <button class="order-button" >Order Now</button>  </a>
+            <button class="order-button" onclick="removeItem(${index})">Delete</button></div></div>
+        `;
+        cartList.appendChild(li);
+    });
+}
+
+// Call the function to display cart items
+displayCartItems();
+
+
+    </script>
+</body>
+</html>

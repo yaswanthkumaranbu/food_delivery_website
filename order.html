@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... (same as your previous code) ... -->
+
+</head>
+
+<body>
+    <style>
+        /* Reset some default styles */
+        body, h1, h2, ul, li, nav {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+
+        header {
+            background-color: #ff5722;
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: fixed;
+            width: 98%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav li {
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .item-box {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.2s;
+            width: 350px;
+            margin-left: 550px;
+        }
+
+        .order-button {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .order-button:hover {
+            background-color: #ff4500;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+    </style>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="restaurant.html">Restaurant</a></li>
+                <li><a href="order.html">Orders</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+        <ul>
+            <a style="color:white;   font-weight: bold;font-size: 16px;" href="profile.html">Personal</a>
+         </ul>
+    </header>
+
+    <main>
+        <section class="order">
+            <h2>Orders</h2>
+            <ul id="cart-items">
+                <!-- Cart items will be displayed here dynamically -->
+            </ul>
+        </section>
+    </main>
+
+    <script>
+        // Retrieve cart items from localStorage
+       // Retrieve cart items from localStorage or initialize as an empty array
+// Retrieve cart items from localStorage or initialize as an empty array
+const cartItems = JSON.parse(localStorage.getItem('order')) || [];
+
+// Function to remove an item from the cart
+function removeItem(index) {
+    cartItems.splice(index, 1);
+    localStorage.setItem('order', JSON.stringify(cartItems));
+    // Update the displayed cart items after removal
+    displayCartItems();
+}
+
+// Display cart items as a list with delete buttons
+function displayCartItems() {
+    const cartList = document.getElementById("cart-items");
+    cartList.innerHTML = "";
+    // Get the URL search parameters
+const params = new URLSearchParams(window.location.search);
+
+// Retrieve specific parameters by name
+const restaurant = params.get('restaurant');
+
+
+
+
+    // Check if cartItems is an array
+    if (Array.isArray(cartItems)) {
+        cartItems.forEach((item, index) => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+                <div class='item-box '>
+                    <img src="${item.image}" alt="${item.name}">
+                    <p>Restaurant: ${restaurant}</p>
+                    <h3>${item.name}</h3>
+                    <p>Price: Rs ${item.price}</p>
+                    <p>Ratings: ${item.ratings}</p>
+                    <p>Offer: ${item.offer}</p>
+                    <div class="buttons">
+                        <button class="order-button" onclick="removeItem(${index})">Cancel order</button>
+                    </div>
+                </div>
+            `;
+            cartList.appendChild(li);
+        });
+    } else {
+        // Handle the case where cartItems is not an array (e.g., due to localStorage being empty)
+        cartList.innerHTML = "<p>Your cart is empty.</p>";
+    }
+}
+
+// Call the function to display cart items
+displayCartItems();
+
+    </script>
+</body>
+</html>

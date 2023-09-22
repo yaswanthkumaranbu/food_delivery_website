@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Selection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <style>
+        /* Reset some default styles */
+body, h1, h2, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    text-align: center;
+}
+
+header {
+    background-color: #ff5722;
+    color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.restaurants {
+    text-align: center;
+}
+
+.restaurants h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+.restaurant-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.2s;
+    width:350px;
+    margin-left:550px
+}
+
+.restaurant-box:hover {
+    transform: scale(1.05);
+}
+
+.restaurant-box img {
+    max-width: 100%;
+    height: auto;
+}
+
+.restaurant-box h3 {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.restaurant-box p {
+    margin: 10px 0;
+}
+
+.order-button {
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.order-button:hover {
+    background-color: #ff4500;
+}
+    </style>
+    
+
+   
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="restaurant.html">Restaurant</a></li>
+                <li><a href="order.html">Orders</a></li>
+                <li><a href="cart.html">Cart</a></li>
+
+
+            </ul>
+        </nav>
+        <ul>
+            <a style="color:white;   font-weight: bold;font-size: 16px;" href="profile.html">Personal</a>
+         </ul>
+    </header>
+    
+        <main>
+            <section class="restaurants">
+                <h2>Restaurants</h2>
+                <ul>
+                    <li>
+                       
+                            <div class="restaurant-box">
+                                <img src="res1.jpeg" alt="Restaurant 1">
+                                <h3>Restaurant 1</h3>
+                                <p>Location: Gandhipuram</p>
+                                <p>Ratings: ⭐⭐⭐⭐</p>
+                                <button class="order-button" onclick="placeOrder('Restaurant 1')">Place Order</button>
+                            </div>
+                        
+                    </li>
+                    <li>
+                     
+                            <div class="restaurant-box">
+                                <img src="res2.jpeg" alt="Restaurant 2">
+                                <h3>Restaurant 2</h3>
+                                <p>Location: Nehru nagar</p>
+                                <p>Ratings: ⭐⭐⭐⭐⭐</p>
+                                <button class="order-button" onclick="placeOrder('Restaurant 2')">Place Order</button>
+                            </div>
+                        
+                    </li>
+                    <li>
+                      
+                            <div class="restaurant-box">
+                                <img src="res3.jpeg" alt="Restaurant 3">
+                                <h3>Restaurant 3</h3>
+                                <p>Location: Kalapatti</p>
+                                <p>Ratings: ⭐⭐⭐⭐</p>
+                                <button class="order-button" onclick="placeOrder('Restaurant 3')">Place Order</button>
+                            </div>
+                        
+                    </li>
+                    <!-- Add more restaurants as needed -->
+                </ul>
+            </section>
+        </main>
+        <script>
+            // Function to retrieve the existing order from localStorage
+            function getExistingOrder() {
+                const existingOrder = JSON.parse(localStorage.getItem('order')) || [];
+                return existingOrder;
+            }
+        
+            // Function to place an order for a restaurant
+// Function to place an order for a restaurant
+// Function to place an order for a restaurant
+function placeOrder(orderData) {
+    // Retrieve the existing order from localStorage
+    // const existingOrder = JSON.parse(localStorage.getItem('order')) || [];
+
+    // // Add the provided order data to the existing orders
+    // existingOrder.push(orderData);
+
+    // // Store the updated order in localStorage
+    // localStorage.setItem('order', JSON.stringify(existingOrder));
+
+    // Show a confirmation message
+    const queryParams = `restaurant=${encodeURIComponent(orderData)}`;
+    window.location.href = 'order.html?' + queryParams;
+alert("Successfully placed the order")
+}
+        </script>
+        
+        
+    </body>
+    </html>
+    
