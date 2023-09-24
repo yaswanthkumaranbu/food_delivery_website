@@ -89,12 +89,13 @@ nav a:hover {
     <header>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="restaurant.html">Restaurant</a></li>
-                <li><a href="order.html">Orders</a></li>
-                <li><a href="cart.html">Cart</a></li>
+                <li><a href="index.html" id="home-link">Home</a></li>
+                <li><a href="restaurant.html" id="restaurant-link">Restaurant</a></li>
+                <li><a href="order.html" id="order-link">MyOrders</a></li>
+                <li><a href="cart.html" id="cart-link">Cart</a></li>
             </ul>
         </nav>
+        
         <ul>
             <a style="color:white;   font-weight: bold;font-size: 16px;" href="profile.html">Personal</a>
          </ul>
@@ -169,7 +170,7 @@ function displayCartItems() {
             <p>Offer: ${item.offer}</p>
             <div class="buttons">
             <a href="#">
-                                <button class="order-button" >Order Now</button>  </a>
+                                <button class="order-button" onclick="addToOrder('${item.index}', '${item.name}', ${item.price}, '${item.ratings}', '${item.offer}', '${item.image}')" >Order Now</button>  </a>
             <button class="order-button" onclick="removeItem(${index})">Delete</button></div></div>
         `;
         cartList.appendChild(li);
@@ -179,7 +180,72 @@ function displayCartItems() {
 // Call the function to display cart items
 displayCartItems();
 
+function addToOrder(itemID, itemName, itemPrice, itemRatings, itemOffer, itemImage) {
+    // Retrieve existing order data or initialize an empty array
+    let existingOrder = JSON.parse(localStorage.getItem('order')) || [];
+
+    const newItem1 = {
+        id: itemID,
+        name: itemName,
+        price: itemPrice,
+        ratings: itemRatings,
+        offer: itemOffer,
+        image: itemImage,
+        timestamp: Date.now()
+    };
+
+    // Make sure existingOrder is an array
+    if (!Array.isArray(existingOrder)) {
+        existingOrder = [];
+    }
+
+    // Add the new item to the order
+    existingOrder.push(newItem1);
+
+    // Store the updated order data in localStorage
+    localStorage.setItem('order', JSON.stringify(existingOrder));
+
+    // Redirect to another HTML page
+    window.location.href = 'restaurant.html';
+}
+
 
     </script>
+        <script>
+            // Get the current page's filename (e.g., "order.html")
+            const currentPage = location.pathname.split('/').pop();
+        
+            // Map the filename to the corresponding link ID
+            const pageToLinkId = {
+                'index.html': 'home-link',
+                'restaurant.html': 'restaurant-link',
+                'order.html': 'order-link',
+                'cart.html': 'cart-link',
+            };
+        
+            // Get the corresponding link ID for the current page
+            const currentLinkId = pageToLinkId[currentPage];
+        
+            // Add the "active" class to the current link
+            if (currentLinkId) {
+                document.getElementById(currentLinkId).classList.add('active');
+            }
+        </script>
+        <style>
+            /* Style for the active page in the navigation bar */
+    .active {
+        text-decoration: underline;
+                color: #fff; /* Text color on highlight */
+    }
+    
+    /* Style for other navigation items (optional) */
+    nav ul li {
+        display: inline;
+        margin-right: 20px;
+    }
+    
+    /* Additional styles as needed */
+    
+        </style>
 </body>
 </html>

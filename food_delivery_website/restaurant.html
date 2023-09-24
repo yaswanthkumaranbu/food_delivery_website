@@ -18,14 +18,10 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
     text-align: center;
+    
 }
 
-header {
-    background-color: #ff5722;
-    color: white;
-    padding: 20px;
-    margin-bottom: 20px;
-}
+
 
 .restaurants {
     text-align: center;
@@ -35,7 +31,7 @@ header {
     font-size: 24px;
     margin-bottom: 20px;
 }
-
+/* 
 ul {
     list-style: none;
     padding: 0;
@@ -48,9 +44,10 @@ li {
 a {
     text-decoration: none;
     color: #333;
-}
+} */
 
 .restaurant-box {
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -102,14 +99,13 @@ a {
     <header>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="restaurant.html">Restaurant</a></li>
-                <li><a href="order.html">Orders</a></li>
-                <li><a href="cart.html">Cart</a></li>
-
-
+                <li><a href="index.html" id="home-link">Home</a></li>
+                <li><a href="restaurant.html" id="restaurant-link">Restaurant</a></li>
+                <li><a href="order.html" id="order-link">MyOrders</a></li>
+                <li><a href="cart.html" id="cart-link">Cart</a></li>
             </ul>
         </nav>
+        
         <ul>
             <a style="color:white;   font-weight: bold;font-size: 16px;" href="profile.html">Personal</a>
          </ul>
@@ -167,22 +163,63 @@ a {
 // Function to place an order for a restaurant
 // Function to place an order for a restaurant
 function placeOrder(orderData) {
+    // Prompt the user for their address
+    var x = prompt("Enter your address:");
+    
     // Retrieve the existing order from localStorage
-    // const existingOrder = JSON.parse(localStorage.getItem('order')) || [];
+    const existingOrder = getExistingOrder();
 
-    // // Add the provided order data to the existing orders
-    // existingOrder.push(orderData);
+    // Get the last item (dictionary) in the existing order
+    const lastItem = existingOrder[existingOrder.length - 1];
 
-    // // Store the updated order in localStorage
-    // localStorage.setItem('order', JSON.stringify(existingOrder));
+    // Add the restaurant and x properties to the last item
+    lastItem.restaurant = orderData; // Store the restaurant name
+    lastItem.x = x; // Store the address
+
+    // Store the updated order in localStorage
+    localStorage.setItem('order', JSON.stringify(existingOrder));
 
     // Show a confirmation message
-    const queryParams = `restaurant=${encodeURIComponent(orderData)}`;
-    window.location.href = 'order.html?' + queryParams;
-alert("Successfully placed the order")
+    alert("Successfully placed the order");
 }
+
         </script>
+          <script>
+            // Get the current page's filename (e.g., "order.html")
+            const currentPage = location.pathname.split('/').pop();
         
+            // Map the filename to the corresponding link ID
+            const pageToLinkId = {
+                'index.html': 'home-link',
+                'restaurant.html': 'restaurant-link',
+                'order.html': 'order-link',
+                'cart.html': 'cart-link',
+            };
+        
+            // Get the corresponding link ID for the current page
+            const currentLinkId = pageToLinkId[currentPage];
+        
+            // Add the "active" class to the current link
+            if (currentLinkId) {
+                document.getElementById(currentLinkId).classList.add('active');
+            }
+        </script>
+        <style>
+            /* Style for the active page in the navigation bar */
+    .active {
+        text-decoration: underline;
+                color: #fff; /* Text color on highlight */
+    }
+    
+    /* Style for other navigation items (optional) */
+    nav ul li {
+        display: inline;
+        margin-right: 20px;
+    }
+    
+    /* Additional styles as needed */
+    
+        </style>  
         
     </body>
     </html>

@@ -10,12 +10,13 @@
     <header>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="restaurant.html">Restaurant</a></li>
-                <li><a href="order.html">Orders</a></li>
-                <li><a href="cart.html">Cart</a></li>
+                <li><a href="index.html" id="home-link">Home</a></li>
+                <li><a href="restaurant.html" id="restaurant-link">Restaurant</a></li>
+                <li><a href="order.html" id="order-link">MyOrders</a></li>
+                <li><a href="cart.html" id="cart-link">Cart</a></li>
             </ul>
         </nav>
+        
      <ul>
         <a style="color:white;   font-weight: bold;font-size: 16px;" href="profile.html">Personal</a>
      </ul>
@@ -124,4 +125,40 @@ nav a:hover {
     </html>
      
 </body>
+<script>
+    // Get the current page's filename (e.g., "order.html")
+    const currentPage = location.pathname.split('/').pop();
+
+    // Map the filename to the corresponding link ID
+    const pageToLinkId = {
+        'index.html': 'home-link',
+        'restaurant.html': 'restaurant-link',
+        'order.html': 'order-link',
+        'cart.html': 'cart-link',
+    };
+
+    // Get the corresponding link ID for the current page
+    const currentLinkId = pageToLinkId[currentPage];
+
+    // Add the "active" class to the current link
+    if (currentLinkId) {
+        document.getElementById(currentLinkId).classList.add('active');
+    }
+</script>
+<style>
+/* Style for the active page in the navigation bar */
+.active {
+text-decoration: underline; /* Highlight color */
+color: #fff; /* Text color on highlight */
+}
+
+/* Style for other navigation items (optional) */
+nav ul li {
+display: inline;
+margin-right: 20px;
+}
+
+/* Additional styles as needed */
+
+</style>    
 </html>

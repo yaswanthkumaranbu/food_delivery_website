@@ -89,12 +89,13 @@
     <header>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="restaurant.html">Restaurant</a></li>
-                <li><a href="order.html">Orders</a></li>
-                <li><a href="cart.html">Cart</a></li>
+                <li><a href="index.html" id="home-link">Home</a></li>
+                <li><a href="restaurant.html" id="restaurant-link">Restaurant</a></li>
+                <li><a href="order.html" id="order-link">MyOrders</a></li>
+                <li><a href="cart.html" id="cart-link">Cart</a></li>
             </ul>
         </nav>
+        
         <ul>
             <a style="color:white;   font-weight: bold;font-size: 16px;" href="profile.html">Personal</a>
          </ul>
@@ -128,10 +129,13 @@ function displayCartItems() {
     const cartList = document.getElementById("cart-items");
     cartList.innerHTML = "";
     // Get the URL search parameters
-const params = new URLSearchParams(window.location.search);
 
-// Retrieve specific parameters by name
-const restaurant = params.get('restaurant');
+
+// const params = new URLSearchParams(window.location.search);
+
+
+// const restaurant = params.get('restaurant');
+// const y=params.get('x');
 
 
 
@@ -143,7 +147,8 @@ const restaurant = params.get('restaurant');
             li.innerHTML = `
                 <div class='item-box '>
                     <img src="${item.image}" alt="${item.name}">
-                    <p>Restaurant: ${restaurant}</p>
+                    <p>Restaurant: ${item.restaurant}</p>
+                    <p>Address : ${item.x}</P>
                     <h3>${item.name}</h3>
                     <p>Price: Rs ${item.price}</p>
                     <p>Ratings: ${item.ratings}</p>
@@ -157,7 +162,7 @@ const restaurant = params.get('restaurant');
         });
     } else {
         // Handle the case where cartItems is not an array (e.g., due to localStorage being empty)
-        cartList.innerHTML = "<p>Your cart is empty.</p>";
+        cartList.innerHTML = "<p>Your Order is empty.</p>";
     }
 }
 
@@ -165,5 +170,41 @@ const restaurant = params.get('restaurant');
 displayCartItems();
 
     </script>
+    <script>
+        // Get the current page's filename (e.g., "order.html")
+        const currentPage = location.pathname.split('/').pop();
+    
+        // Map the filename to the corresponding link ID
+        const pageToLinkId = {
+            'index.html': 'home-link',
+            'restaurant.html': 'restaurant-link',
+            'order.html': 'order-link',
+            'cart.html': 'cart-link',
+        };
+    
+        // Get the corresponding link ID for the current page
+        const currentLinkId = pageToLinkId[currentPage];
+    
+        // Add the "active" class to the current link
+        if (currentLinkId) {
+            document.getElementById(currentLinkId).classList.add('active');
+        }
+    </script>
+    <style>
+        /* Style for the active page in the navigation bar */
+.active {
+    text-decoration: underline;
+        color: #fff; /* Text color on highlight */
+}
+
+/* Style for other navigation items (optional) */
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+/* Additional styles as needed */
+
+    </style>
 </body>
 </html>
